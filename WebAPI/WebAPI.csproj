@@ -22,4 +22,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include=".github\workflows\github-actions.yml" />
+  </ItemGroup>
+
 </Project>

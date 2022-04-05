@@ -14,7 +14,7 @@ jobs:
           GH_SECURITY_TOKEN: ${{ secrets.GitHubSecurityToken }}
           JIRA_TOKEN: ${{ secrets.JiraApiToken }}
           JIRA_HOST: https://foo.atlassian.net
-          JIRA_USER: someuser@reload.dk
-          JIRA_PROJECT: ABC
+          JIRA_USER: henrique.santos@hurb.com
+          JIRA_PROJECT: Infosec
           JIRA_ISSUE_TYPE: Security
-          JIRA_WATCHERS: someuser@reload.dk,someotheruser@reload.dk
+          JIRA_WATCHERS: henrique.santos@hurb.com
