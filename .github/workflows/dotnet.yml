@@ -16,10 +16,24 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 6.0.x
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+      
+  syncSecurityAlerts:
+      runs-on: ubuntu-latest
+      steps:
+        - name: "Sync security alerts to Jira issues"
+          uses: reload/github-security-jira@v1.x
+          env:
+            GH_SECURITY_TOKEN: ${{ secrets.GitHubSecurityToken }}
+            JIRA_TOKEN: ${{ secrets.JiraApiToken }}
+            JIRA_HOST: https://foo.atlassian.net
+            JIRA_USER: henrique.santos@hurb.com
+            JIRA_PROJECT: Infosec
+            JIRA_ISSUE_TYPE: Security
+            JIRA_WATCHERS: henrique.santos@hurb.com
