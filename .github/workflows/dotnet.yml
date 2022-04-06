@@ -1,4 +1,4 @@
-name: .NET
+name: Main Flow
 
 on:
   push:
@@ -24,19 +24,6 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
 
-    - uses: actions/checkout@v2
-    - uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: |
-          5.0.x
-          6.0.x
-    - name: Run Microsoft Security DevOps
-      uses: microsoft/security-devops-action@preview
-      id: msdo
-    - name: Upload results to Security tab
-      uses: github/codeql-action/upload-sarif@v1
-      with:
-        sarif_file: ${{ steps.msdo.outputs.sarifFile }}
       
   syncSecurityAlerts:
       runs-on: ubuntu-latest
@@ -52,4 +39,26 @@ jobs:
             JIRA_ISSUE_TYPE: Security
             JIRA_WATCHERS: henrique.santos@hurb.com
             
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
 
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'csharp' ]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v1
+      with:
+        languages: ${{ matrix.language }}
+
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v1
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v1
