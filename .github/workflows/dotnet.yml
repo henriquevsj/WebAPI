@@ -58,6 +58,6 @@ jobs:
           JIRA_TOKEN: ${{ secrets.JiraApiToken }}
           JIRA_HOST: https://hurbcom.atlassian.net/
           JIRA_USER: henrique.santos@hurb.com
-          JIRA_PROJECT: Infosec
+          JIRA_PROJECT:	IN
           JIRA_ISSUE_TYPE: Security
           JIRA_WATCHERS: henrique.santos@hurb.com
