@@ -1,11 +1,9 @@
 name: Build and Analysis
-
 on:
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-
   schedule:
     - cron: '0 8 * * *'
   workflow_dispatch:
@@ -37,17 +35,29 @@ jobs:
     - name: Checkout repository
       id: checkout_repo
       uses: actions/checkout@v2
-
     - name: Initialize CodeQL
       id: init_codeql
       uses: github/codeql-action/init@v1
       with:
         languages: ${{ matrix.language }}
         queries: security-and-quality
-    
     - name: Autobuild
       uses: github/codeql-action/autobuild@v1
-
     - name: Perform CodeQL Analysis
       id: analyze_codeql
       uses: github/codeql-action/analyze@v1
+      
+  syncSecurityAlerts:
+    name: Sync security alerts
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Sync security alerts to Jira issues"
+        uses: reload/github-security-jira@v1.x
+        env:
+          GH_SECURITY_TOKEN: ${{ secrets.GitHubSecurityToken }}
+          JIRA_TOKEN: ${{ secrets.JiraApiToken }}
+          JIRA_HOST: https://hurbcom.atlassian.net/
+          JIRA_USER: henrique.santos@hurb.com
+          JIRA_PROJECT: Infosec
+          JIRA_ISSUE_TYPE: Security
+          JIRA_WATCHERS: henrique.santos@hurb.com
