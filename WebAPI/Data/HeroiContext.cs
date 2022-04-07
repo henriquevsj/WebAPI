@@ -19,7 +19,7 @@ namespace WebAPI.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //
-            optionsBuilder.UseSqlServer(@"Password=dcrrwmp3; TrustServerCertificate=True; User ID=sa;Initial Catalog=HeroApp;Data Source=HUNB1044\SQLSERVER");
+            optionsBuilder.UseSqlServer(@"Password=*****; TrustServerCertificate=True; User ID=sa;Initial Catalog=HeroApp;Data Source=HUNB1044\SQLSERVER");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
