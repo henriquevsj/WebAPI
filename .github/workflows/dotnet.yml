@@ -44,6 +44,9 @@ jobs:
       with:
         languages: ${{ matrix.language }}
         queries: security-and-quality
+    
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v1
 
     - name: Perform CodeQL Analysis
       id: analyze_codeql
